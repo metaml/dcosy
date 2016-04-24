@@ -3,7 +3,8 @@
 #### requirements
 
 1. Ubuntu 15.10
-.  Docker version 1.11.0
+
+2. Docker v. 1.11.0
 
 #### installation
 
