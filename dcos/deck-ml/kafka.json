@@ -1,0 +1,13 @@
+{
+    "service": {
+        "name": "sample-kafka-custom",
+        "placement_strategy": "NODE"
+    },
+    "brokers": {
+        "count": 3
+    },
+    "kafka": {
+        "delete_topic_enable": true,
+        "log_retention_hours": 168
+    }
+}

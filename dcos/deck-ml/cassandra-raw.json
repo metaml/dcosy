@@ -1,0 +1,29 @@
+{
+    "service" : {
+        "name": "cassandra",
+        "placement_strategy": "NODE",
+        "cpus": 0.1,
+        "mem": 512,
+        "heap": 256
+    },
+    "nodes": {
+        "cpus": 0.5,
+        "mem": 8192,
+        "disk": 16384,
+        "heap": {
+            "size": 4096,
+            "new": 512
+        },
+        "count": 3,
+        "seeds": 3
+    },
+    "executor" : {
+        "cpus": 0.1,
+        "mem": 512,
+        "heap": 256
+    },
+    "task" : {
+        "cpus": 0.1,
+        "mem": 128
+    }
+}
