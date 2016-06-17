@@ -1,1 +1,6 @@
 ansible
+**/dcos
+**/lookup_plugins
+**/templates
+**/tmp
+**/venv

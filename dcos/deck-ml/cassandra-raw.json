@@ -1,6 +1,6 @@
 {
     "service" : {
-        "name": "cassandra",
+        "name": "cassandra-raw",
         "placement_strategy": "NODE",
         "cpus": 0.1,
         "mem": 512,

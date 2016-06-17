@@ -1,9 +1,15 @@
 {
     "service": {
-        "name": "sample-kafka-custom",
-        "placement_strategy": "NODE"
+        "name": "kafka",
+        "placement_strategy": "NODE",
+        "cpus": 0.1,
+        "mem": 512,
+        "heap": 256
     },
     "brokers": {
+        "cpus": 0.25,
+        "mem": 2048,
+        "disk": 16384,
         "count": 3
     },
     "kafka": {
