@@ -1,0 +1,15 @@
+{
+  "id": "dev-scala",
+  "container": {
+    "docker": {
+      "image": "metaml/dev-scala"
+    },
+    "type": "DOCKER",
+    "volumes": []
+  },
+  "constraints": [["hostname", "UNIQUE"]],
+  "ipAddress": {},
+  "cpus": 4.0,
+  "mem": 4196.0,
+  "instances": 3
+}

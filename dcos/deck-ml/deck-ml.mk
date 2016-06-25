@@ -5,7 +5,7 @@ SHELL = /bin/bash
 export AWS_REGION        = us-west-2
 export DCOS_ADMIN_KEY    = ~/.ssh/dev_pbe_key.pub
 export DCOS_CLUSTER_NAME = deck-ml
-export DCOS_WORKER_NODES = 9
+export DCOS_WORKER_NODES = 3
 
 mk: ## make a "deck" DCOS infrastructure in AWS
 	pushd ../ansible \

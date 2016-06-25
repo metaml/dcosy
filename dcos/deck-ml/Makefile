@@ -1,31 +1,45 @@
 .DEFAULT_GOAL = help
 SHELL = /bin/bash
 
-deck-dcos: ## make a DCOS for deck
+deck-dcos: ## make a DC/OS for deck in AWS
+deck-dcos: symlinks
 	${MAKE} -f deck-ml.mk mk
 
 deck-infra-deps: ## make deck's infra. dependencies in DCOS
-deck-infra-deps: symlink kafka cassandra cassandra-raw
+deck-infra-deps: symlinks kafka cassandra cassandra-raw
 
-deck: ## install deck's docker-image in DCOS
+deck: ## install deck in DCOS
 	echo '@todo'
 
-kafka: ## make kafka cluster
+kafka: ## install a kafka cluster in DCOS
 	./dcos package install --options=kafka.json kafka
 
-cassandra: ## make cassandra cluster
-	./dcos package install  --options=cassandra.json cassandra
+deck-cassandra: ## install a cassandra cluster in DCOS
+	./dcos marathon app add deck-cassandra.json
 
-cassandra-raw: ## make cassandra-raw cluster
-	./dcos package install --options=cassandra-raw.json cassandra
+deck-cassandra-raw: ## install a cassandra-raw cluster in DCOS
+	./dcos marathon app add deck-cassandra-raw.json
+
+marathon-lb: ## install a marathon load-balancer in DCOS
+	./dcos package install marathon-lb
+
+docker-registry: ## install a docker-registry in DCOS
+	./dcos marathon app add docker-registry.json
+
+dev-scala: ## install dev-scala (docker) in DCOS
+	./dcos marathon app add dev-scala.json
+
+login: ## login to your DCOS
+	./dcos auth login
 
 LINKS = *.yml dcos lookup_plugins templates tmp venv
 symlinks: ## make sym links to docs-bootstrp
-	for i in ${LINKS}; do ln -s ../../aws/dcos-bootstrap/$$i; done
+	for i in ${LINKS}; do ln -fs ../../aws/dcos-bootstrap/$$i; done
 
 clean: ## clean up
 	rm -f ${LINKS}
 
+clobber: ## clobber your DCOS
 clobber: clean
 	${MAKE} -f deck-ml.mk unmk
 

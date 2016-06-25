@@ -1,12 +1,13 @@
 {
   "id": "deck-cassandra",
-  "cpus": 2.0,
-  "mem": 4196,
   "instances": 3,
   "container": {
     "docker": {"image": "metaml/deck-cassandra"},
     "forcePullImage": true,
     "type": "DOCKER"
   },
-  "constraints": [["hostname", "UNIQUE"]]
+  "constraints": [["hostname", "UNIQUE"]],
+  "ipAddress": {},
+  "cpus": 2.0,
+  "mem": 4196
 }

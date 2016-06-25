@@ -1,0 +1,20 @@
+{
+  "id": "deck-cassandra-raw-0",
+  "cpus": 2.0,
+  "mem": 4196,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "metaml/deck-cassandra-raw-0",
+      "network": "BRIDGE",
+      "portMappings": [
+        {"hostPort": 7199, "containerPort": 7199, "servicePort": 0},
+        {"hostPort": 9042, "containerPort": 9042, "servicePort": 0},
+        {"hostPort": 9160, "containerPort": 9160, "servicePort": 0}
+      ]
+    },
+    "forcePullImage": true,
+    "type": "DOCKER"
+  },
+  "constraints": [["hostname", "UNIQUE"]]
+}
