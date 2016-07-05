@@ -1,3 +1,0 @@
-[submodule "aws/dcos-bootstrap"]
-	path = aws/dcos-bootstrap
-	url = https://github.com/dcos-labs/dcos-bootstrap

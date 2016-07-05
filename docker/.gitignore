@@ -1,2 +1,4 @@
 dcos-docker
 dcos_generate_config.sh
+genconf
+*.tar

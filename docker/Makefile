@@ -1,44 +1,37 @@
+.PHONY: install launch dcos-installer dcos-docker cli-install-sh dcos-cli stop sh help
+
 .DEFAULT_GOAL := help
 
+install: ## install dcos 1.7 early access and launch
+install: dcos-docker dcos-installer launch
+
+launch: ## build dcos-docker and launch
+	cd dcos-docker && make MASTERS=1 AGENTS=4
+
 DCOS_INSTALLER_URL = https://downloads.dcos.io/dcos/EarlyAccess/dcos_generate_config.sh
-DCOS_DOCKER_URL = https://github.com/dcos/dcos-docker
-
-install: ## install dcos 1.7 early access: kickoff target
-install: dcos-docker dcos-installer build
-
-build: ## build dcos-docker
-	cd dcos-docker && make
-
 dcos-installer: ## download dc/os 1.7.0 installer
 	wget ${DCOS_INSTALLER_URL} -O dcos-docker/dcos_generate_config.sh
 
-SUBMODULE = ${DCOS_INSTALLER_URL}
-add-submod: ## add related git submodule
-	@if [ ! -d lib/docket ]; then \
-		git submodule add --force ${SUBMODULE} dcos-docker; \
-		echo added dcos-docker submodule; \
-	elif [ ! -f lib/docket/Makefile ]; then \
-		if ! git rm -f --cached dcos-docker 2>&1; then ${MAKE} clean; fi; \
-		git submodule add --force ${SUBMODULE} dcos-docker; \
-		echo added dcos-docker submodule; \
-	else \
-		echo noop: dcos-docker already exists; \
-	fi
+DCOS_DOCKER_URL = https://github.com/dcos/dcos-docker
+dcos-docker: ## add related git submodule
+	git clone ${DCOS_DOCKER_URL}
 
+DCOS_CLI_URL = https://downloads.dcos.io/dcos-cli/install.sh
 cli-install-sh: ## dcos cli
-	wget ${DCOS_INSTALLER_URL} -O /tmp/install.sh
+	[ -f /tmp/install.sh ] || (cd /tmp && wget ${DCOS_CLI_URL})
 
 dcos-cli: ## install dcos cli
-dcos-cli: clil-install-sh
+dcos-cli: cli-install-sh
+	sudo mkdir -p /opt/dcos && sudo chown -R ${LOGNAME} /opt/dcos
 	bash /tmp/install.sh /opt/dcos http://172.17.0.2
 
 clean: ## clean
 	sudo rm -rf dcos-docker
 
-stop: DIDS = $(shell docker ps -q)
+stop: IDS = $(shell docker ps -q)
 stop: ## stop local dcos
-	if [ -n "${DIDS}" ]; then docker kill $DIDS; fi
-	docker rmi $$(docker ps -q -a)
+	if [ -n "${IDS}" ]; then docker kill ${IDS}; fi
+	docker rm $$(docker ps -q -a)
 
 DOCKER_ID ?= dcos-docker-master1
 EXEC ?= /bin/bash
