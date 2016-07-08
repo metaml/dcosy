@@ -10,11 +10,13 @@ launch: ## build dcos-docker and launch
 
 DCOS_INSTALLER_URL = https://downloads.dcos.io/dcos/EarlyAccess/dcos_generate_config.sh
 dcos-installer: ## download dc/os 1.7.0 installer
-	wget ${DCOS_INSTALLER_URL} -O dcos-docker/dcos_generate_config.sh
+	[ -f dcos-docker/dcos_generate_config.sh ] \
+	|| wget ${DCOS_INSTALLER_URL} -O dcos-docker/dcos_generate_config.sh
 
 DCOS_DOCKER_URL = https://github.com/dcos/dcos-docker
 dcos-docker: ## add related git submodule
-	git clone ${DCOS_DOCKER_URL}
+	[ -d dcos-docker ] || git clone ${DCOS_DOCKER_URL}
+	cd dcos-docker && git pull
 
 DCOS_CLI_URL = https://downloads.dcos.io/dcos-cli/install.sh
 cli-install-sh: ## dcos cli

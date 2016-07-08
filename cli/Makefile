@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL = help
 
 DCOS_CLI_URL = https://downloads.dcos.io/dcos-cli/install.sh
 
@@ -9,6 +9,7 @@ install-sh: ## get install.sh
 	wget ${DCOS_CLI_URL} -O /tmp/install.sh
 
 dcos-cli: ## install dcos cli
+	sudo mkdir -p /opt/dcos && sudo chown -R ${LOGNAME} /opt/dcos
 	bash /tmp/install.sh /opt/dcos http://172.17.0.2
 
 help: ## help
